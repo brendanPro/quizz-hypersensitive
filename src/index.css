@@ -11,8 +11,26 @@
   }
 
   body {
-    @apply grid place-items-center min-w-[320px] min-h-screen relative m-0 bg-background text-foreground;
+    @apply grid justify-center items-start min-w-[320px] min-h-screen relative m-0 bg-background text-foreground;
     background-color: rgba(152, 221, 255, 0.47);
+    /* Reserve space for scrollbar to avoid width shifts when content height changes */
+    overflow-y: scroll;
+    scrollbar-gutter: stable both-edges;
+  }
+}
+
+@layer utilities {
+  /* Clamp text to two lines and fix the block height to two lines */
+  .twoline-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  /* Ensure a consistent height even if content is one line */
+  .twoline-height {
+    line-height: 1.5;
+    min-height: calc(1em * 1.5 * 2);
   }
 }
 

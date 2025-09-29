@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { QuizzQuestion } from "./quizzQuestion";
 import { type Question} from "../types/question";
-import { QUESTIONS_LABLES } from "../constants/questions";
+import { QUESTIONS_LABLES, QUESSTIONS_PART } from "../constants/questions";
+import { Button } from "./ui/button";
 
 export function Quizz() {
   const [isQuizzFinished, setIsQuizzFinished] = useState(false);
@@ -37,6 +38,20 @@ export function Quizz() {
     setIsQuizzFinished(true);
   }
 
+  const resetQuizz = () => {
+    setQuizz([]);
+    setQuestionIndex(0);
+    setIsQuizzFinished(false);
+  }
+
+  const currentPartLabel = (() => {
+    const parts = Object.values(QUESSTIONS_PART).sort((a, b) => a.index - b.index);
+    let label = parts[0]?.label ?? "";
+    for (const part of parts) {
+      if (questionIndex >= part.index) label = part.label;
+    }
+    return label;
+  })();
 
   return (
     <div>
@@ -44,9 +59,15 @@ export function Quizz() {
         isQuizzFinished ? (
           <div>
             <p>Le resultat du quizz est : {quizz.reduce((a, b) => a + b.value, 0)}</p>
+            <Button onClick={resetQuizz}>Recommencer le quizz</Button>
           </div>
         ) : (
-          <QuizzQuestion
+
+          <>
+            <div className="mb-4 text-center">
+              <h2 className="text-3xl font-semibold text-muted-foreground">{currentPartLabel}</h2>
+            </div>
+            <QuizzQuestion
             question={currentQuestion}
             nextQuestion={nextQuestion}
             previousQuestion={previousQuestion}
@@ -54,7 +75,8 @@ export function Quizz() {
             finishQizz={finishQizz}
             isFirstQuestion={questionIndex === 0}
             isLatestQuestion={questionIndex === QUESTIONS_LABLES.length - 1}
-          />
+            />
+          </>
         )
         
       }

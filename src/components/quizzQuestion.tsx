@@ -17,9 +17,11 @@ export function QuizzQuestion({ question, setValue, nextQuestion , previousQuest
   }
 
   return (
-    <div>
-      <p>{question.label}</p>
-      <Selector onChange={setValue} value={question.value}/>
+    <div className="max-w-2xl mx-auto text-center">
+      <p className="text-lg font-medium leading-relaxed text-balance break-words mb-6 twoline-clamp twoline-height">{question.label}</p>
+      <div className="mb-6">
+        <Selector onChange={setValue} value={question.value}/>
+      </div>
       <Button onClick={previousQuestion} disabled={isFirstQuestion} className="m-4">Précédent</Button>
       {
         isLatestQuestion ? (
