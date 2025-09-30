@@ -3,6 +3,7 @@ import { QuizzQuestion } from "./quizzQuestion";
 import { type Question} from "../types/question";
 import { QUESTIONS_LABLES, QUESSTIONS_PART } from "../constants/questions";
 import { Button } from "./ui/button";
+import { QuizzResult } from "./quizzResult";
 
 export function Quizz() {
   const [isQuizzFinished, setIsQuizzFinished] = useState(false);
@@ -38,6 +39,7 @@ export function Quizz() {
     setIsQuizzFinished(true);
   }
 
+
   const resetQuizz = () => {
     setQuizz([]);
     setQuestionIndex(0);
@@ -53,34 +55,32 @@ export function Quizz() {
     return label;
   })();
 
-  return (
-    <div>
-      {
-        isQuizzFinished ? (
-          <div>
-            <p>Le resultat du quizz est : {quizz.reduce((a, b) => a + b.value, 0)}</p>
-            <Button onClick={resetQuizz}>Recommencer le quizz</Button>
-          </div>
-        ) : (
 
-          <>
-            <div className="mb-4 text-center">
-              <h2 className="text-3xl font-semibold text-muted-foreground">{currentPartLabel}</h2>
-            </div>
-            <QuizzQuestion
-            question={currentQuestion}
-            nextQuestion={nextQuestion}
-            previousQuestion={previousQuestion}
-            setValue={setValue}
-            finishQizz={finishQizz}
-            isFirstQuestion={questionIndex === 0}
-            isLatestQuestion={questionIndex === QUESTIONS_LABLES.length - 1}
-            />
-          </>
-        )
-        
-      }
-      
-    </div>
+
+  if (isQuizzFinished) {
+    return (
+      <>
+        <QuizzResult quizz={quizz} />
+        {/* <Button onClick={resetQuizz}>Recommencer le quizz</Button> */}
+      </>
+    )
+  }
+
+  return (
+    <>
+      <div className="mb-4 text-center">
+        <h2 className="text-3xl font-semibold text-muted-foreground">{currentPartLabel}</h2>
+      </div>
+      <QuizzQuestion
+      question={currentQuestion}
+      nextQuestion={nextQuestion}
+      previousQuestion={previousQuestion}
+      setValue={setValue}
+      finishQizz={finishQizz}
+      isFirstQuestion={questionIndex === 0}
+      isLatestQuestion={questionIndex === QUESTIONS_LABLES.length - 1}
+      />
+    </>
   );
+  
 }
