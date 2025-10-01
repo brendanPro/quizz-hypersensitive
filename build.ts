@@ -141,6 +141,16 @@ const entrypoints = [...new Bun.Glob("**.html").scanSync("src")]
 console.log(`📄 Found ${entrypoints.length} HTML ${entrypoints.length === 1 ? "file" : "files"} to process\n`);
 
 // Build all the HTML files
+// Collect public env vars (BUN_PUBLIC_*) to inline into the bundle
+const publicEnvDefines = Object.fromEntries(
+  Object.entries(process.env)
+    .filter(([key]) => key.startsWith("BUN_PUBLIC_"))
+    .map(([key, value]) => [
+      `process.env.${key}`,
+      JSON.stringify(value ?? ""),
+    ])
+);
+
 const result = await build({
   entrypoints,
   outdir,
@@ -150,6 +160,7 @@ const result = await build({
   sourcemap: "linked",
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),
+    ...publicEnvDefines,
   },
   ...cliConfig, // Merge in any CLI-provided options
 });
