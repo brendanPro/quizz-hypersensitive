@@ -2,7 +2,7 @@
 import { build, type BuildConfig } from "bun";
 import plugin from "bun-plugin-tailwind";
 import { existsSync } from "fs";
-import { rm } from "fs/promises";
+import { rm, cp } from "fs/promises";
 import path from "path";
 
 // Print help text if requested
@@ -164,6 +164,13 @@ const result = await build({
   },
   ...cliConfig, // Merge in any CLI-provided options
 });
+
+// Copy static files from public/ to outdir
+const publicDir = path.resolve(process.cwd(), "public");
+if (existsSync(publicDir)) {
+  console.log(`📦 Copying public/ assets to ${outdir}`);
+  await cp(publicDir, outdir, { recursive: true });
+}
 
 // Print the results
 const end = performance.now();
