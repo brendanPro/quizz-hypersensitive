@@ -10,6 +10,11 @@
     "verbatimModuleSyntax": true,
     "noEmit": true,
 
+    // Enable strict null checks required by TanStack Router
+    "strictNullChecks": true,
+    // Optionally enable full strict mode
+    "strict": true,
+
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
