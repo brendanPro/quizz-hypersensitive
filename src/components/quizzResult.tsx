@@ -1,7 +1,7 @@
 import { Label, PolarGrid, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
 import { type Question } from "../types/question";
 import { ChartContainer, type ChartConfig } from "./ui/chart";
-import { MAX_VALUE_PER_QUESTION, QUESTIONS_LABLES, RESULT_DESCRIPTION } from "@/constants/questions";
+import { MAX_VALUE_PER_QUESTION, QUESTIONS_LABELS, RESULT_DESCRIPTION } from "@/constants/questions";
 
 type QuizzResultProps = {
   quizz: Question[];
@@ -16,7 +16,7 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function QuizzResult({ quizz }: QuizzResultProps) {
-    const max = QUESTIONS_LABLES.length * MAX_VALUE_PER_QUESTION;
+    const max = QUESTIONS_LABELS.length * MAX_VALUE_PER_QUESTION;
     const total = quizz.reduce((a, b) => a + b.value, 0);
     const percent = Math.round((total / max) * 100);
     const chartData = [

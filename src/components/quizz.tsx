@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { QuizzQuestion } from "./quizzQuestion";
 import { type Question} from "../types/question";
-import { QUESTIONS_LABLES, QUESSTIONS_PART } from "../constants/questions";
+import { QUESTIONS_LABELS, QUESSTIONS_PART } from "../constants/questions";
 import { Button } from "./ui/button";
 import { QuizzResult } from "./quizzResult";
 
@@ -12,18 +12,18 @@ export function Quizz() {
 
   
   const currentQuestion: Question = {
-    label: QUESTIONS_LABLES[questionIndex],
+    label: QUESTIONS_LABELS[questionIndex],
     value: quizz[questionIndex]?.value ?? undefined, 
   };
 
   const setValue = (value: number) => {
     const newQuizz = [...quizz];
-    newQuizz[questionIndex] = { label: QUESTIONS_LABLES[questionIndex], value };
+    newQuizz[questionIndex] = { label: QUESTIONS_LABELS[questionIndex], value };
     setQuizz(newQuizz);
   };
 
   const nextQuestion = () => {
-    if (questionIndex < QUESTIONS_LABLES.length - 1) {
+    if (questionIndex < QUESTIONS_LABELS.length - 1) {
       setQuestionIndex(questionIndex + 1);
     }
 
@@ -78,7 +78,7 @@ export function Quizz() {
       setValue={setValue}
       finishQizz={finishQizz}
       isFirstQuestion={questionIndex === 0}
-      isLatestQuestion={questionIndex === QUESTIONS_LABLES.length - 1}
+      isLatestQuestion={questionIndex === QUESTIONS_LABELS.length - 1}
       />
     </>
   );

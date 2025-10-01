@@ -4,8 +4,8 @@ import { Button } from "./ui/button";
 import { type Question } from "../types/question";
 type QuestionProps = {
   question: Question;
-  setValue?: (value: number) => void;
-  nextQuestion?: () => void;
+  setValue: (value: number) => void;
+  nextQuestion: () => void;
   previousQuestion?: () => void;
   finishQizz?: () => void;
   isLatestQuestion?: boolean;
