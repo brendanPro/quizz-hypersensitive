@@ -1,23 +1,48 @@
 import { BACKEND_URL, GET_URL_PATH } from "@/constants/backend";
 import { Button } from "../ui/button";
 import { useState } from "react";
+import { DateTimePicker24h } from "../customized/date-time-picker/date-time-picker";
 
 export function Admin() {
   const [data, setData] = useState<any>(null);
-  console.log(BACKEND_URL, GET_URL_PATH);
-  const getURL = () => {
-    fetch(`${BACKEND_URL}${GET_URL_PATH}`)
+  const [dateFrom, setDateFrom] = useState<Date>(new Date());
+  const [dateTo, setDateTo] = useState<Date>(new Date());
+  const [showUrl, setShowUrl] = useState<boolean>(false)
+
+
+  const getURLToken = () => {
+    fetch(`${BACKEND_URL}${GET_URL_PATH}?${getURLParams()}`)
       .then(res => res.json())
       .then(data => {
-        setData(data);
+        setData(data.token);
+        setShowUrl(true)
       });
   }
 
+  const getURLParams = () => {
+    return `fromDate=${dateFrom.getTime()}&toDate=${dateTo.getTime()}`;
+  }
+
+
   return (
-    <div className="max-w-xl mx-auto text-center py-10">
+    <div className="text-center py-10 w-2xl mx-auto">
       <h1 className="text-2xl font-semibold">Admin</h1>
-      <Button onClick={getURL}>Get URL</Button>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <div className="flex flex-row gap-4">
+        <Button onClick={getURLToken}>Get URL</Button>
+        <div>
+          <DateTimePicker24h defaultDate={dateFrom} onChange={setDateFrom} />
+        </div>
+        <div>
+          <DateTimePicker24h defaultDate={dateTo} onChange={setDateTo} />
+        </div>
+      </div>
+      <div>
+        {
+          showUrl ? 
+          (`${window.location.origin}?token=${data}`):
+          ('')
+        }
+        </div>
     </div>
   );
 }
