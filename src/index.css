@@ -23,13 +23,13 @@
   /* Clamp text to two lines and fix the block height to two lines */
   .twoline-clamp {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
   /* Ensure a consistent height even if content is one line */
   .twoline-height {
     line-height: 1.5;
-    min-height: calc(1em * 1.5 * 2);
+    min-height: calc(1em * 1.5 * 3);
   }
 }

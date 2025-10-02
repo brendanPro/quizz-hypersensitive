@@ -1,9 +1,11 @@
 import "./index.css";
+import logo from "./logo.svg";
+
+import { useState } from "react";
 import { Quizz } from "./components/quizz";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card";
-import logo from "./logo.svg"
 import { Button } from "./components/ui/button";
-import { useState } from "react";
+
 
 export function App() {
   const [isQuizzStarted, setIsQuizzStarted] = useState(false);
@@ -23,7 +25,7 @@ export function App() {
           {
             !isQuizzStarted ? 
             (<>
-              <CardDescription className="text-base text-balance break-words max-w-[90%] mx-auto">S’auto évaluer à travers 50 questions</CardDescription>
+              <CardDescription className="text-base text-balance break-words max-w-[90%] mx-auto">S’auto évaluer à travers 50 affirmations</CardDescription>
               <p className="text-sm text-muted-foreground">Proposé par Nexus <i>Coaching & Consulting</i></p>
             </>) :
             (<></>)
