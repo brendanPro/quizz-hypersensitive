@@ -2,6 +2,7 @@ import { createRootRoute, createRoute, createRouter, redirect } from '@tanstack/
 import { App } from './App';
 import { Unauthorized } from './components/Unauthorized';
 import { Admin } from './components/admin/Admin';
+import { Login } from './components/Login';
 import { BACKEND_URL, VALIDATE_PARAM } from './constants/backend';
 
 const rootRoute = createRootRoute();
@@ -25,6 +26,12 @@ const indexRoute = createRoute({
 const adminRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/admin',
+  beforeLoad: async () => {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('google_id_token') : null;
+    if (!token) {
+      throw redirect({ to: '/login' });
+    }
+  },
   component: Admin,
 });
 
@@ -34,7 +41,13 @@ const unauthorizedRoute = createRoute({
   component: Unauthorized,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, adminRoute, unauthorizedRoute]);
+const loginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/login',
+  component: Login,
+});
+
+const routeTree = rootRoute.addChildren([indexRoute, adminRoute, unauthorizedRoute, loginRoute]);
 
 export const router = createRouter({ routeTree });
 
