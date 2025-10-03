@@ -1,18 +1,18 @@
-import React from "react";
-import { RadioGroup as RadioGroupPrimitive } from "radix-ui";
+import React from 'react';
+import { RadioGroup as RadioGroupPrimitive } from 'radix-ui';
 
 const options = [
   {
-    value: "4gb",
-    label: "4GB + 64GB",
+    value: '4gb',
+    label: '4GB + 64GB',
   },
   {
-    value: "6gb",
-    label: "6GB + 128GB",
+    value: '6gb',
+    label: '6GB + 128GB',
   },
   {
-    value: "8gb",
-    label: "8GB + 128GB",
+    value: '8gb',
+    label: '8GB + 128GB',
   },
 ];
 

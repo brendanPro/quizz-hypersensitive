@@ -1,11 +1,10 @@
-import "./index.css";
-import logo from "./logo.svg";
+import './index.css';
+import logo from './logo.svg';
 
-import { useState } from "react";
-import { Quizz } from "./components/quizz";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card";
-import { Button } from "./components/ui/button";
-
+import { useState } from 'react';
+import { Quizz } from './components/quizz';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card';
+import { Button } from './components/ui/button';
 
 export function App() {
   const [isQuizzStarted, setIsQuizzStarted] = useState(false);
@@ -22,22 +21,26 @@ export function App() {
               SUIS-JE HYPERSENSIBLE ?
             </CardTitle>
           </div>
-          {
-            !isQuizzStarted ? 
-            (<>
-              <CardDescription className="text-base text-balance break-words max-w-[90%] mx-auto">S’auto évaluer à travers 50 affirmations</CardDescription>
-              <p className="text-sm text-muted-foreground">Proposé par Nexus <i>Coaching & Consulting</i></p>
-            </>) :
-            (<></>)
-          }
+          {!isQuizzStarted ? (
+            <>
+              <CardDescription className="text-base text-balance break-words max-w-[90%] mx-auto">
+                S’auto évaluer à travers 50 affirmations
+              </CardDescription>
+              <p className="text-sm text-muted-foreground">
+                Proposé par Nexus <i>Coaching & Consulting</i>
+              </p>
+            </>
+          ) : (
+            <></>
+          )}
         </CardHeader>
         <CardContent className="text-center">
           <div className="relative z-10">
-              {
-                !isQuizzStarted ? 
-                ( <Button onClick={() => setIsQuizzStarted(true)}>Commencer le quizz</Button> ) :
-                ( <Quizz /> )
-              }
+            {!isQuizzStarted ? (
+              <Button onClick={() => setIsQuizzStarted(true)}>Commencer le quizz</Button>
+            ) : (
+              <Quizz />
+            )}
           </div>
         </CardContent>
       </Card>

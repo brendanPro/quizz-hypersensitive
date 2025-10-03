@@ -8,7 +8,9 @@
   "scripts": {
     "dev": "bun --hot src/index.tsx",
     "start": "NODE_ENV=production bun src/index.tsx",
-    "build": "bun run build.ts"
+    "build": "bun run build.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.0",
@@ -42,6 +44,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "prettier": "^3.3.3",
     "@tanstack/eslint-plugin-query": "^5.91.0",
     "@tanstack/router-plugin": "^1.132.27",
     "@types/bun": "latest",

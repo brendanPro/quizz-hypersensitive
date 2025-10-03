@@ -5,16 +5,15 @@
  * It is included in `src/index.html`.
  */
 
-import { createRoot } from "react-dom/client";
-import { StrictMode } from "react";
-import { RouterProvider } from "@tanstack/react-router";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { router } from "./router";
+import { createRoot } from 'react-dom/client';
+import { StrictMode } from 'react';
+import { RouterProvider } from '@tanstack/react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { router } from './router';
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
-
-const elem = document.getElementById("root")!;
+const elem = document.getElementById('root')!;
 const app = (
   <StrictMode>
     <QueryClientProvider client={queryClient}>
