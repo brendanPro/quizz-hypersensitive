@@ -1,4 +1,5 @@
 import { Context } from '@netlify/functions';
+import { isAfter, isBefore } from 'date-fns';
 import { CustomRequest } from '../../share/custom-request';
 import { decrypt } from '../../share/crypto';
 
@@ -9,14 +10,18 @@ export default async (request: Request, context: Context) => {
 
     if (customRequest.isCorsPreflight()) return customRequest.getCorsResponse();
     if (customRequest.isRequestMethodValid()) return customRequest.getInvalideMethodResponse();
-
     const key = url.searchParams.get('key');
-
     if (!key) return customRequest.getBadRequestResponse();
 
-    const body = {
-      dates: getAvilableDates(key ?? ''),
-    };
+    const { fromDate, toDate } = getAvilableDates(key);
+    const now = new Date();
+
+    console.log(isBefore(now, toDate));
+    console.log(isAfter(now, fromDate));
+    if (!(isBefore(now, toDate) && isAfter(now, fromDate)))
+      return customRequest.getBadRequestResponse();
+
+    const body = undefined;
 
     return customRequest.getSuccessRequest(body);
   } catch (error) {
@@ -25,7 +30,7 @@ export default async (request: Request, context: Context) => {
   }
 };
 
-function getAvilableDates(key: string) {
+function getAvilableDates(key: string): { fromDate: Date; toDate: Date } {
   const [fromDatetimeStamp, toDateTimestamp] = decrypt(key)
     .split('-')
     .map((d) => parseInt(d));
