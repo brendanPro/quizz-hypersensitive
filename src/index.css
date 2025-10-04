@@ -32,4 +32,24 @@
     line-height: 1.5;
     min-height: calc(1em * 1.5 * 3);
   }
+
+  .fade-in {
+    opacity: 0;
+    animation: fadeIn 0.3s ease-in forwards;
+  }
+
+  .fade-in-delay {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-in forwards;
+    animation-delay: 1s; /* wait 1s before fading in */
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }

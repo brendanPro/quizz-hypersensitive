@@ -68,19 +68,22 @@ export function Quizz() {
 
   return (
     <>
-      <div className="mb-4 text-center">
+      <div key={`part-${currentPartLabel}`} className="mb-4 text-center fade-in">
         <h2 className="text-3xl font-semibold text-muted-foreground">{currentPartLabel}</h2>
       </div>
-      <QuizzQuestion
-        question={currentQuestion}
-        nextQuestion={nextQuestion}
-        previousQuestion={previousQuestion}
-        setValue={setValue}
-        finishQizz={finishQizz}
-        isFirstQuestion={questionIndex === 0}
-        isLatestQuestion={questionIndex === QUESTIONS_LABELS.length - 1}
-        isAnimating={isAnimating}
-      />
+
+      <div key={`question-${currentPartLabel}`} className="fade-in-delay">
+        <QuizzQuestion
+          question={currentQuestion}
+          nextQuestion={nextQuestion}
+          previousQuestion={previousQuestion}
+          setValue={setValue}
+          finishQizz={finishQizz}
+          isFirstQuestion={questionIndex === 0}
+          isLatestQuestion={questionIndex === QUESTIONS_LABELS.length - 1}
+          isAnimating={isAnimating}
+        />
+      </div>
     </>
   );
 }
