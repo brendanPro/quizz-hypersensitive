@@ -10,7 +10,7 @@ export default async (request: Request, context: Context) => {
 
     if (customRequest.isCorsPreflight()) return customRequest.getCorsResponse();
     if (customRequest.isRequestMethodValid()) return customRequest.getInvalideMethodResponse();
-    if (isParamsValid(url)) return customRequest.getBadRequestResponse();
+    if (!isParamsValid(url)) return customRequest.getBadRequestResponse();
 
     const userEmail = getUserEmail(url);
     if (!authorizedUsers?.includes(userEmail)) return customRequest.getUnauthorizedResponse();
