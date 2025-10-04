@@ -9,6 +9,7 @@ export function Quizz() {
   const [isQuizzFinished, setIsQuizzFinished] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [quizz, setQuizz] = useState<Question[]>([]);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const currentQuestion: Question = {
     label: QUESTIONS_LABELS[questionIndex],
@@ -23,7 +24,11 @@ export function Quizz() {
 
   const nextQuestion = () => {
     if (questionIndex < QUESTIONS_LABELS.length - 1) {
-      setQuestionIndex(questionIndex + 1);
+      setIsAnimating(true);
+      setTimeout(() => {
+        setQuestionIndex(questionIndex + 1);
+        setIsAnimating(false);
+      }, 250);
     }
   };
 
@@ -74,6 +79,7 @@ export function Quizz() {
         finishQizz={finishQizz}
         isFirstQuestion={questionIndex === 0}
         isLatestQuestion={questionIndex === QUESTIONS_LABELS.length - 1}
+        isAnimating={isAnimating}
       />
     </>
   );

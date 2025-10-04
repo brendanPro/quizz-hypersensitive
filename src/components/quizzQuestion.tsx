@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Selector } from './selector';
 import { Button } from './ui/button';
 import { type Question } from '../types/question';
+
 type QuestionProps = {
   question: Question;
   setValue: (value: number) => void;
@@ -10,6 +11,7 @@ type QuestionProps = {
   finishQizz?: () => void;
   isLatestQuestion?: boolean;
   isFirstQuestion?: boolean;
+  isAnimating?: boolean;
 };
 export function QuizzQuestion({
   question,
@@ -19,6 +21,7 @@ export function QuizzQuestion({
   finishQizz,
   isFirstQuestion,
   isLatestQuestion,
+  isAnimating = false,
 }: QuestionProps) {
   const handleNextQuestion = () => {
     nextQuestion();
@@ -26,9 +29,17 @@ export function QuizzQuestion({
 
   return (
     <div className="max-w-2xl mx-auto text-center">
-      <p className="text-lg font-medium leading-relaxed text-balance break-words mb-6 twoline-clamp twoline-height">
-        {question.label}
-      </p>
+      <div className="relative overflow-hidden mb-6">
+        <p
+          className={`text-lg font-medium leading-relaxed text-balance break-words twoline-clamp twoline-height transition-transform duration-500 ease-in-out ${
+            isAnimating
+              ? 'transform -translate-x-full opacity-0'
+              : 'transform translate-x-0 opacity-100'
+          }`}
+        >
+          {question.label}
+        </p>
+      </div>
       <div className="mb-6">
         <Selector onChange={setValue} value={question.value} />
       </div>

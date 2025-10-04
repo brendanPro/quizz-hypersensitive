@@ -32,7 +32,7 @@ export function QuizzResult({ quizz }: QuizzResultProps) {
 
   return (
     <>
-      <div className="text-center">
+      <div className="text-center text-xl font-semibold">
         Féliciation, vous avez fini le quizz!
         <p>Votre score d'hypersensibilité est de : </p>
       </div>
@@ -83,7 +83,7 @@ export function QuizzResult({ quizz }: QuizzResultProps) {
           </PolarRadiusAxis>
         </RadialBarChart>
       </ChartContainer>
-      <p className="text-center">{resultDescription?.description}</p>
+      <p className="text-center text-xl font-semibold">{resultDescription?.description}</p>
     </>
   );
 }

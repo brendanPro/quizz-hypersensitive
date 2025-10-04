@@ -41,7 +41,7 @@ export function Selector({ value, onChange }: SelectorProps) {
         <RadioGroupPrimitive.Item
           key={option.value}
           value={option.value}
-          className={`ring-[1px] ring-border rounded py-1 px-3 data-[state=checked]:ring-2 data-[state=checked]:ring-blue-500 ${option.color} text-white`}
+          className={`ring-[1px] ring-border rounded py-1 px-3 data-[state=checked]:ring-3 data-[state=checked]:ring-black data-[state=checked]:shadow-lg data-[state=checked]:brightness-180 ${option.color} text-white transition-all duration-200`}
           onClick={() => onChange(parseInt(option.value))}
         >
           <span className="font-semibold tracking-tight">{option.label}</span>
