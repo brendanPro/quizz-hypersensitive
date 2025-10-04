@@ -65,11 +65,11 @@ export const QUESSTIONS_PART = {
   },
   part2: {
     label: 'Partie 2 : Emotionnel, Intuition & Sensitif',
-    index: 20,
+    index: 19,
   },
   part3: {
     label: 'Partie 3 : Interactions Sociales',
-    index: 33,
+    index: 34,
   },
 };
 
