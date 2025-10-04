@@ -7,7 +7,7 @@ export const QUESTIONS_LABELS = [
   '5. Je suis gêné(e) par les textures de vêtements et ai besoin de me sentir à l’aise dans mes vêtements',
   '6. Je porte des lunettes de soleil / plisse les yeux / me bouche le nez ou les oreilles pour faire face à mon environnement et peux me gratter dans des vêtements inconfortables',
   '7. J’ai besoin de solitude régulière pour garder ou retrouver mon équilibre émotionnel surtout après un environnement stimulant',
-  '8. Je fais mon possible pour éviter les situations inquiétantes ou perturbatrices',
+  '8. Je fais mon possible pour éviter les situations inquiétantes ou perturbantes',
   '9. J’ai besoin d’avoir un moment seul(e) après une journée harassante pour recharger mes batteries',
   '10. Je me sens exténué(e) par le stress et la charge mentale',
   '11. Je suis sensible aux effets de la caféine, de l’alcool ou de la drogue',
@@ -76,22 +76,22 @@ export const QUESSTIONS_PART = {
 export const RESULT_DESCRIPTION = [
   {
     score: 50,
-    description: 'Vous êtes faiblement hypersensibile',
+    description: 'Vous êtes faiblement hypersensible',
   },
   {
     score: 100,
-    description: 'Vous êtes modérément hypersensibile',
+    description: 'Vous êtes modérément hypersensible',
   },
   {
     score: 150,
-    description: 'Vous êtes hypersensibile',
+    description: 'Vous êtes hypersensible',
   },
   {
     score: 170,
-    description: 'Vous êtes fortement hypersensibile',
+    description: 'Vous êtes fortement hypersensible',
   },
   {
     score: 200,
-    description: 'Vous êtes très fortement hypersensibile',
+    description: 'Vous êtes très fortement hypersensible',
   },
 ];
