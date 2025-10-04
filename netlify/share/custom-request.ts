@@ -56,4 +56,11 @@ export class CustomRequest extends Request {
       headers: corsHeaders(this.headers.get('origin')),
     });
   }
+
+  getUnauthorizedResponse(): Response {
+    return new Response('Unauthorized', {
+      status: 401,
+      headers: corsHeaders(this.headers.get('origin')),
+    });
+  }
 }

@@ -5,7 +5,7 @@ const IV_LENGTH = 12; // 96-bit nonce recommended for GCM
 const AUTH_TAG_LENGTH = 16;
 
 function loadKey(): Buffer {
-  const raw = process.env.ENCRYPTION_KEY || process.env.SECRET_ENCRYPTION_KEY || '';
+  const raw = process.env.ENCRYPTION_KEY;
   if (!raw) throw new Error('ENCRYPTION_KEY is not set');
 
   // Try hex (64 chars for 32 bytes)

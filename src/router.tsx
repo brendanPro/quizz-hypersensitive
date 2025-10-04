@@ -27,6 +27,7 @@ const adminRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/admin',
   beforeLoad: async () => {
+    // todo validate token
     const token = typeof window !== 'undefined' ? localStorage.getItem('google_id_token') : null;
     if (!token) {
       throw redirect({ to: '/login' });
