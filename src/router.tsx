@@ -3,7 +3,8 @@ import { App } from './App';
 import { Unauthorized } from './components/Unauthorized';
 import { Admin } from './components/admin/Admin';
 import { Login } from './components/Login';
-import { BACKEND_URL, VALIDATE_PARAM } from './constants/backend';
+import { BACKEND_URL, VALIDATE_PARAM, VALIDATE_USER } from './constants/backend';
+import { jwtDecode } from 'jwt-decode';
 
 const rootRoute = createRootRoute();
 
@@ -27,11 +28,13 @@ const adminRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/admin',
   beforeLoad: async () => {
-    // todo validate token
     const token = typeof window !== 'undefined' ? localStorage.getItem('google_id_token') : null;
     if (!token) {
       throw redirect({ to: '/login' });
     }
+    const credential = jwtDecode(token) as any;
+    const result = await fetch(`${BACKEND_URL}${VALIDATE_USER}?user=${credential.email}`);
+    if (!result.ok) throw redirect({ to: '/unauthorized' });
   },
   component: Admin,
 });

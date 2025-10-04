@@ -13,6 +13,7 @@ export default async (request: Request, context: Context) => {
     if (!isParamsValid(url)) return customRequest.getBadRequestResponse();
 
     const userEmail = getUserEmail(url);
+
     if (!authorizedUsers?.includes(userEmail)) return customRequest.getUnauthorizedResponse();
 
     const body = undefined;

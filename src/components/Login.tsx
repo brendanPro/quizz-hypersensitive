@@ -8,30 +8,13 @@ import { useState } from 'react';
 export function Login() {
   const navigate = useNavigate();
 
-  const [userEmail, setUserEmail] = useState<string | null>(null);
-
-  const { refetch } = useQuery({
-    queryKey: ['user', userEmail],
-    queryFn: async () => {
-      if (!userEmail) throw new Error('No email provided');
-      const response = await fetch(`${BACKEND_URL}${VALIDATE_USER}?user=${userEmail}`);
-      return response.json();
-    },
-    enabled: false,
-  });
-
   const onSuccess = async (credentialResponse: CredentialResponse) => {
     if (credentialResponse.credential) {
       const credential = jwtDecode(credentialResponse.credential) as any;
-      setUserEmail(credential.email);
-
-      // Trigger the query to validate the user with the email
-      const result = await refetch();
-      if (result.error) navigate({ to: '/unauthorized' });
-      if (result.data && !result.error) {
-        localStorage.setItem('google_id_token', credentialResponse.credential);
-        navigate({ to: '/admin' });
-      }
+      const result = await fetch(`${BACKEND_URL}${VALIDATE_USER}?user=${credential.email}`);
+      if (!result.ok) return navigate({ to: '/unauthorized' });
+      localStorage.setItem('google_id_token', credentialResponse.credential);
+      navigate({ to: '/admin' });
     }
   };
 
@@ -40,12 +23,7 @@ export function Login() {
       <div className="w-full border rounded-md p-8 text-center bg-white/80 backdrop-blur">
         <h1 className="text-2xl font-semibold mb-4">Connexion</h1>
         <div className="flex justify-center">
-          <GoogleLogin
-            onSuccess={onSuccess}
-            onError={() => {
-              // noop
-            }}
-          />
+          <GoogleLogin onSuccess={onSuccess} onError={() => {}} />
         </div>
       </div>
     </div>

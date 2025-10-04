@@ -15,9 +15,6 @@ export default async (request: Request, context: Context) => {
 
     const { fromDate, toDate } = getAvilableDates(key);
     const now = new Date();
-
-    console.log(isBefore(now, toDate));
-    console.log(isAfter(now, fromDate));
     if (!(isBefore(now, toDate) && isAfter(now, fromDate)))
       return customRequest.getBadRequestResponse();
 
