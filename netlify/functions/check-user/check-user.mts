@@ -4,12 +4,11 @@ import { CustomRequest } from '../../share/custom-request';
 const authorizedUsers = process.env.AUTHORIZED_USERS?.split(',');
 
 export default async (request: Request, context: Context) => {
+  const customRequest = new CustomRequest(request);
+  const url = customRequest.getUrl();
   try {
-    const customRequest = new CustomRequest(request);
-    const url = new URL(customRequest.url);
-
     if (customRequest.isCorsPreflight()) return customRequest.getCorsResponse();
-    if (customRequest.isRequestMethodValid()) return customRequest.getInvalideMethodResponse();
+    if (!customRequest.isRequestMethodValid()) return customRequest.getInvalideMethodResponse();
     if (!isParamsValid(url)) return customRequest.getBadRequestResponse();
 
     const userEmail = getUserEmail(url);
@@ -20,7 +19,6 @@ export default async (request: Request, context: Context) => {
 
     return customRequest.getSuccessRequest(body);
   } catch (error) {
-    const customRequest = new CustomRequest(request);
     return customRequest.getInternalErrorResponse(error);
   }
 };

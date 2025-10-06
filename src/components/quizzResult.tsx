@@ -1,8 +1,17 @@
 import { Label, PolarGrid, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts';
 import { type Question } from '../types/question';
 import { ChartContainer, type ChartConfig } from './ui/chart';
-import { MAX_VALUE_PER_QUESTION, QUESTIONS_LABELS, RESULT_DESCRIPTION } from '@/constants/questions';
+import {
+  MAX_VALUE_PER_QUESTION,
+  QUESTIONS_LABELS,
+  RESULT_DESCRIPTION,
+} from '@/constants/questions';
 import { BACKEND_URL, SUBMIT_RESULT } from '@/constants/backend';
+import { Label as InputLabel } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 type QuizzResultProps = {
   quizz: Question[];
@@ -16,25 +25,45 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function QuizzResult({ quizz }: QuizzResultProps) {
+  const [email, setUserEmail] = useState<string>('');
   const max = QUESTIONS_LABELS.length * MAX_VALUE_PER_QUESTION;
   const total = quizz.reduce((a, b) => a + b.value, 0);
   const percent = Math.round((total / max) * 100);
-  // Submit result once on first render
-  if (typeof window !== 'undefined') {
-    try {
-      const search = new URLSearchParams(window.location.search);
-      const token = search.get('key');
-      void fetch(`${BACKEND_URL}${SUBMIT_RESULT}`, {
+
+  const { isSuccess, refetch } = useQuery({
+    queryKey: ['token'],
+    queryFn: async () => {
+      const response = await fetch(`${BACKEND_URL}${SUBMIT_RESULT}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           scoreTotal: total,
-          scorePercent: percent,
-          token,
+          email,
+          answers: quizz,
         }),
-      }).catch(() => {});
-    } catch {}
-  }
+      });
+      return response.json();
+    },
+    enabled: false,
+  });
+
+  // Submit result once on first render
+  // if (typeof window !== 'undefined') {
+  //   try {
+  //     const search = new URLSearchParams(window.location.search);
+  //     const token = search.get('key');
+  //     void fetch(`${BACKEND_URL}${SUBMIT_RESULT}`, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({
+  //         scoreTotal: total,
+  //         scorePercent: percent,
+  //         token,
+  //       }),
+  //     }).catch(() => {});
+  //   } catch {}
+  // }
+
   const chartData = [
     {
       result: percent,
@@ -42,12 +71,25 @@ export function QuizzResult({ quizz }: QuizzResultProps) {
     },
   ];
   const resultDescription = RESULT_DESCRIPTION.find((result) => total <= result.score);
+  if (!isSuccess)
+    return (
+      <div className="grid w-full max-w-sm items-center gap-3 m-auto">
+        <p className="mb-5 font-semibold text-xl">Il ne reste plus qu'une dernière étape</p>
+        <InputLabel htmlFor="email">Email</InputLabel>
+        <Input
+          type="email"
+          id="email"
+          placeholder="Entrez votre email pour connaitre votre résultat"
+          onChange={(e) => setUserEmail(e.target.value)}
+        />
+        <Button onClick={() => refetch()}>Voir mes résultats</Button>
+      </div>
+    );
 
   return (
     <>
       <div className="text-center text-xl font-semibold">
-        Félicitations, vous avez terminé le quizz !
-        <p>Votre score d'hypersensibilité est de : </p>
+        Félicitations, vous avez terminé le quizz !<p>Votre score d'hypersensibilité est de : </p>
       </div>
       <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">
         <RadialBarChart

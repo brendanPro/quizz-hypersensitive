@@ -3,12 +3,11 @@ import { CustomRequest } from '../../share/custom-request';
 import { encrypt } from '../../share/crypto';
 
 export default async (request: Request, context: Context) => {
+  const customRequest = new CustomRequest(request);
+  const url = customRequest.getUrl();
   try {
-    const customRequest = new CustomRequest(request);
-    const url = new URL(customRequest.url);
-
     if (customRequest.isCorsPreflight()) return customRequest.getCorsResponse();
-    if (customRequest.isRequestMethodValid()) return customRequest.getInvalideMethodResponse();
+    if (!customRequest.isRequestMethodValid()) return customRequest.getInvalideMethodResponse();
     if (!isParamsUrlValid(url)) return customRequest.getBadRequestResponse();
 
     const fromDate = url.searchParams.get('fromDate') ?? '';
@@ -19,7 +18,6 @@ export default async (request: Request, context: Context) => {
 
     return customRequest.getSuccessRequest(body);
   } catch (error) {
-    const customRequest = new CustomRequest(request);
     return customRequest.getInternalErrorResponse(error);
   }
 };
