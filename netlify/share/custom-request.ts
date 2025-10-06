@@ -1,7 +1,7 @@
 const corsHeaders = (origin: string | null) => ({
   'Access-Control-Allow-Origin': origin ?? '*',
   Vary: 'Origin',
-  'Access-Control-Allow-Methods': 'GET,OPTIONS',
+  'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   'Access-Control-Max-Age': '86400',
 });

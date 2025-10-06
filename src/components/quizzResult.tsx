@@ -1,11 +1,8 @@
 import { Label, PolarGrid, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts';
 import { type Question } from '../types/question';
 import { ChartContainer, type ChartConfig } from './ui/chart';
-import {
-  MAX_VALUE_PER_QUESTION,
-  QUESTIONS_LABELS,
-  RESULT_DESCRIPTION,
-} from '@/constants/questions';
+import { MAX_VALUE_PER_QUESTION, QUESTIONS_LABELS, RESULT_DESCRIPTION } from '@/constants/questions';
+import { BACKEND_URL, SUBMIT_RESULT } from '@/constants/backend';
 
 type QuizzResultProps = {
   quizz: Question[];
@@ -22,6 +19,22 @@ export function QuizzResult({ quizz }: QuizzResultProps) {
   const max = QUESTIONS_LABELS.length * MAX_VALUE_PER_QUESTION;
   const total = quizz.reduce((a, b) => a + b.value, 0);
   const percent = Math.round((total / max) * 100);
+  // Submit result once on first render
+  if (typeof window !== 'undefined') {
+    try {
+      const search = new URLSearchParams(window.location.search);
+      const token = search.get('key');
+      void fetch(`${BACKEND_URL}${SUBMIT_RESULT}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          scoreTotal: total,
+          scorePercent: percent,
+          token,
+        }),
+      }).catch(() => {});
+    } catch {}
+  }
   const chartData = [
     {
       result: percent,
