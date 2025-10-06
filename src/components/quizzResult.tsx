@@ -33,7 +33,7 @@ export function QuizzResult({ quizz }: QuizzResultProps) {
   return (
     <>
       <div className="text-center text-xl font-semibold">
-        Félicitation, vous avez fini le quizz !
+        Félicitations, vous avez terminé le quizz !
         <p>Votre score d'hypersensibilité est de : </p>
       </div>
       <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">
@@ -83,7 +83,7 @@ export function QuizzResult({ quizz }: QuizzResultProps) {
           </PolarRadiusAxis>
         </RadialBarChart>
       </ChartContainer>
-      <p className="text-center text-xl font-semibold">{resultDescription?.description}</p>
+      <p className="text-center text-2xl font-bold">{resultDescription?.description}</p>
     </>
   );
 }

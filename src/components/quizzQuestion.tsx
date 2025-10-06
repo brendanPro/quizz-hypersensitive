@@ -48,7 +48,7 @@ export function QuizzQuestion({
       </Button>
       {isLatestQuestion ? (
         <Button onClick={finishQizz} disabled={question.value === undefined}>
-          Voir le resultat
+          Voir mon résultat
         </Button>
       ) : (
         <Button onClick={handleNextQuestion} disabled={question.value === undefined}>

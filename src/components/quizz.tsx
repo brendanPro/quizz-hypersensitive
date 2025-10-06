@@ -72,7 +72,7 @@ export function Quizz() {
         <h2 className="text-3xl font-semibold text-muted-foreground">{currentPartLabel}</h2>
       </div>
 
-      <div key={`question-${currentPartLabel}`} className="fade-in-delay">
+      <div key={`question-${currentPartLabel}`} className="fade-in-delay mt-4">
         <QuizzQuestion
           question={currentQuestion}
           nextQuestion={nextQuestion}
