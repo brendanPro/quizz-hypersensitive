@@ -33,7 +33,7 @@ export function QuizzResult({ quizz }: QuizzResultProps) {
   return (
     <>
       <div className="text-center text-xl font-semibold">
-        Féliciation, vous avez fini le quizz!
+        Félicitation, vous avez fini le quizz !
         <p>Votre score d'hypersensibilité est de : </p>
       </div>
       <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">

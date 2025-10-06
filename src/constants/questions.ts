@@ -1,10 +1,10 @@
 export const QUESTIONS_LABELS = [
   // Partie 1 : L’Environnement
-  '1. Je suis gêné(e) par des bruits forts, entêtants ou répétitifs (aspirateur, perceuse, musique trop forte, aboiement)',
+  '1. Je suis gêné(e) par les bruits forts, entêtants ou répétitifs (aspirateur, perceuse, musique trop forte, aboiement …)',
   '2. Je deviens en colère, irritable ou stressé(e) lorsque des bruits me dérangent',
   '3. Les lumières vives me dérangent',
   '4. Je suis gêné(e) par les odeurs intenses',
-  '5. Je suis gêné(e) par les textures de vêtements et ai besoin de me sentir à l’aise dans mes vêtements',
+  '5. Je suis gêné(e) par les textures de vêtements et ai besoin de m’y sentir à l’aise dans mes vêtements',
   '6. Je porte des lunettes de soleil / plisse les yeux / me bouche le nez ou les oreilles pour faire face à mon environnement et peux me gratter dans des vêtements inconfortables',
   '7. J’ai besoin de solitude régulière pour garder ou retrouver mon équilibre émotionnel surtout après un environnement stimulant',
   '8. Je fais mon possible pour éviter les situations inquiétantes ou perturbantes',
@@ -47,7 +47,7 @@ export const QUESTIONS_LABELS = [
   '41. Les critiques ou les remarques négatives m’affectent',
   '42. Je ressens la douleur ou la tristesse des autres comme si elles étaient les miennes',
   '43. Les humeurs des autres m’affectent',
-  '44. Je me trompe rarement sur les gens juste en les regardant et ressentant leur énergie',
+  '44. Je me trompe rarement sur les gens juste en les regardant et en ressentant leur énergie, je sais prédire leur personalité',
   '45. Je ressens beaucoup les gens sans qu’ils aient besoin d’ouvrir la bouche',
   '46. J’arrive à percevoir lorsqu’une personne ne va pas bien',
   '47. Je me sens incompris(e) ou différent(e) des autres du fait de ma sensibilité',
