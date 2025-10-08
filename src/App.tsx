@@ -11,10 +11,10 @@ export function App() {
   const [isQuizzStarted, setIsQuizzStarted] = useState(false);
 
   return (
-    <div className="w-[1000px] justify-self-center self-start mt-10 px-4 py-10">
+    <div className="md:w-[1000px] w-full md:mt-10 md:px-4 md:py-10 mx-auto">
       <Card className="w-full border-muted bg-white/80 backdrop-blur">
         <CardHeader className="items-center text-center">
-          <div className="w-full flex items-center justify-start gap-45">
+          <div className="w-full flex items-center justify-start md:gap-45 flex-col md:flex-row">
             <div className="h-30 w-30 shrink-0 rounded-md bg-muted/60 border flex items-center justify-center overflow-hidden">
               <img src={logo} alt="Nexus-logo" className="h-50 w-50 object-contain" />
             </div>

@@ -31,7 +31,7 @@ export function QuizzQuestion({
     <div className="max-w-2xl mx-auto text-center">
       <div className="relative overflow-hidden mb-6">
         <p
-          className={`text-lg font-medium leading-relaxed text-balance break-words twoline-clamp twoline-height transition-transform duration-500 ease-in-out ${
+          className={`sm:text-lg text-base font-medium leading-relaxed text-balance break-words sm:threeline-clamp sm:threeline-height fiveline-clamp fiveline-height transition-transform duration-500 ease-in-out ${
             isAnimating
               ? 'transform -translate-x-full opacity-0'
               : 'transform translate-x-0 opacity-100'

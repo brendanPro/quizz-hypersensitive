@@ -69,7 +69,9 @@ export function Quizz() {
   return (
     <>
       <div key={`part-${currentPartLabel}`} className="mb-4 text-center fade-in">
-        <h2 className="text-3xl font-semibold text-muted-foreground">{currentPartLabel}</h2>
+        <h2 className="text-2xl sm:text-3xl font-semibold text-muted-foreground">
+          {currentPartLabel}
+        </h2>
       </div>
 
       <div key={`question-${currentPartLabel}`} className="fade-in-delay mt-4">
