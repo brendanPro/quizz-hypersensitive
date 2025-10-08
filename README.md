@@ -1,6 +1,10 @@
-# bun-react-tailwind-shadcn-template
+# Nexus HyperSensible Test
 
-To install dependencies:
+This is a React-based web application that helps users assess their hypersensitivity level through a 50-question quiz. The project was created using the Bun JavaScript runtime.
+
+## Installation
+
+To install the dependencies, run the following command:
 
 ```bash
 bun install
@@ -17,5 +21,3 @@ To run for production:
 ```bash
 bun start
 ```
-
-This project was created using `bun init` in bun v1.2.4. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.

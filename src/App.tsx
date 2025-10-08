@@ -45,7 +45,7 @@ export function App() {
           </div>
         </CardContent>
       </Card>
-      <CookieConsent buttonText="J'accèpte">
+      <CookieConsent buttonText="J'accepte">
         Ce site utilise des cookies pour améliorer l’expérience utilisateur.
       </CookieConsent>
     </div>

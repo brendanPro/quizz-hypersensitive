@@ -58,7 +58,7 @@ export function QuizzResult({ quizz }: QuizzResultProps) {
   if (isLoading)
     return (
       <>
-        <div className="text-center text-xl font-semibold">Sauvgarde du resultat en cours...</div>
+        <div className="text-center text-xl font-semibold">Sauvegarde du resultat en cours...</div>
       </>
     );
 
