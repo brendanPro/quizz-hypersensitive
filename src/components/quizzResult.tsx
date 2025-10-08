@@ -58,7 +58,7 @@ export function QuizzResult({ quizz }: QuizzResultProps) {
   if (isLoading)
     return (
       <>
-        <div className="text-center text-xl font-semibold">Sauvegarde du resultat en cours...</div>
+        <div className="text-center text-xl font-semibold">Sauvegarde du résultat en cours...</div>
       </>
     );
 
@@ -66,7 +66,8 @@ export function QuizzResult({ quizz }: QuizzResultProps) {
     return (
       <>
         <div className="text-center text-xl font-semibold">
-          Félicitations, vous avez terminé le quizz !<p>Votre score d'hypersensibilité est de : </p>
+          Félicitations, vous avez terminé le quizz !{' '}
+          <p>Votre score d'hypersensibilité est de : </p>
         </div>
         <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">
           <RadialBarChart
@@ -121,7 +122,7 @@ export function QuizzResult({ quizz }: QuizzResultProps) {
 
   return (
     <div className="grid w-full max-w-sm items-center gap-3 m-auto">
-      <p className="mb-5 font-semibold text-xl">Il ne reste plus qu'une dernière étape</p>
+      <p className="mb-5 font-semibold text-xl">Il ne reste plus qu'une dernière étape &#128522;</p>
       <InputLabel htmlFor="email">Email</InputLabel>
       <Input
         type="email"
@@ -129,7 +130,7 @@ export function QuizzResult({ quizz }: QuizzResultProps) {
         placeholder="Entrez votre email pour connaitre votre résultat"
         onChange={(e) => setUserEmail(e.target.value)}
       />
-      <Button onClick={() => refetch()}>Voir mes résultats</Button>
+      <Button onClick={() => refetch()}>Voir mon résultat</Button>
     </div>
   );
 }
