@@ -1,7 +1,7 @@
 const corsHeaders = (origin: string | null) => ({
   'Access-Control-Allow-Origin': origin ?? '*',
   Vary: 'Origin',
-  'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
+  'Access-Control-Allow-Methods': 'GET,POST,DELETE,OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   'Access-Control-Max-Age': '86400',
 });
@@ -15,6 +15,10 @@ export class CustomRequest {
 
     this.body = this.request.json();
     return this.body;
+  }
+
+  getMethod(): string {
+    return this.request.method;
   }
 
   isRequestMethodValid(): boolean {
@@ -53,13 +57,20 @@ export class CustomRequest {
     });
   }
 
-  getCreatedRequest(body: any): Response {
+  getCreatedResponse(body: any): Response {
     return new Response(JSON.stringify(body), {
       status: 201,
       headers: {
         'Content-Type': 'application/json',
         ...corsHeaders(this.request.headers.get('origin')),
       },
+    });
+  }
+
+  getDeleteResponse(): Response {
+    return new Response(null, {
+      status: 204,
+      headers: corsHeaders(this.request.headers.get('origin')),
     });
   }
 
