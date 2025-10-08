@@ -3,6 +3,7 @@ import { Button } from '../ui/button';
 import { useState } from 'react';
 import { DateTimePicker24h } from '../customized/date-time-picker/date-time-picker';
 import { useQuery } from '@tanstack/react-query';
+import ResultList from './ResultList';
 
 export function Admin() {
   const [dateFrom, setDateFrom] = useState<Date>(new Date());
@@ -48,6 +49,10 @@ export function Admin() {
         ) : (
           ''
         )}
+      </div>
+
+      <div className="mt-8">
+        <ResultList />
       </div>
     </div>
   );

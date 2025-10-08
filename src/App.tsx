@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Quizz } from './components/quizz';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card';
 import { Button } from './components/ui/button';
+import { CookieConsent } from 'react-cookie-consent';
 
 export function App() {
   const [isQuizzStarted, setIsQuizzStarted] = useState(false);
@@ -44,6 +45,9 @@ export function App() {
           </div>
         </CardContent>
       </Card>
+      <CookieConsent buttonText="J'accèpte">
+        Ce site utilise des cookies pour améliorer l’expérience utilisateur.
+      </CookieConsent>
     </div>
   );
 }

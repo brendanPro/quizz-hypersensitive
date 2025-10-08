@@ -6,10 +6,10 @@ import { decrypt } from '../../share/crypto';
 export default async (request: Request, context: Context) => {
   try {
     const customRequest = new CustomRequest(request);
-    const url = new URL(customRequest.url);
+    const url = customRequest.getUrl();
 
     if (customRequest.isCorsPreflight()) return customRequest.getCorsResponse();
-    if (customRequest.isRequestMethodValid()) return customRequest.getInvalideMethodResponse();
+    if (!customRequest.isRequestMethodValid()) return customRequest.getInvalideMethodResponse();
     const key = url.searchParams.get('key');
     if (!key) return customRequest.getBadRequestResponse();
 
