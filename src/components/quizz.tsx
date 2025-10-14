@@ -1,61 +1,69 @@
-import { useState } from 'react';
+import { useState, useCallback, useMemo, memo } from 'react';
 import { QuizzQuestion } from './quizzQuestion';
 import { type Question } from '../types/question';
 import { QUESTIONS_LABELS, QUESSTIONS_PART } from '../constants/questions';
 import { Button } from './ui/button';
 import { QuizzResult } from './quizzResult';
 
-export function Quizz() {
+export const Quizz = memo(function Quizz() {
   const [isQuizzFinished, setIsQuizzFinished] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [quizz, setQuizz] = useState<Question[]>([]);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  const currentQuestion: Question = {
-    label: QUESTIONS_LABELS[questionIndex],
-    value: quizz[questionIndex]?.value ?? undefined,
-  };
+  const currentQuestion: Question = useMemo(
+    () => ({
+      label: QUESTIONS_LABELS[questionIndex],
+      value: quizz[questionIndex]?.value ?? undefined,
+    }),
+    [questionIndex, quizz],
+  );
 
-  const setValue = (value: number) => {
-    const newQuizz = [...quizz];
-    newQuizz[questionIndex] = { label: QUESTIONS_LABELS[questionIndex], value };
-    setQuizz(newQuizz);
-  };
+  const setValue = useCallback(
+    (value: number) => {
+      setQuizz((prevQuizz) => {
+        const newQuizz = [...prevQuizz];
+        newQuizz[questionIndex] = { label: QUESTIONS_LABELS[questionIndex], value };
+        return newQuizz;
+      });
+    },
+    [questionIndex],
+  );
 
-  const nextQuestion = () => {
+  const nextQuestion = useCallback(() => {
     if (questionIndex < QUESTIONS_LABELS.length - 1) {
       setIsAnimating(true);
       setTimeout(() => {
-        setQuestionIndex(questionIndex + 1);
+        setQuestionIndex((prevIndex) => prevIndex + 1);
         setIsAnimating(false);
       }, 250);
     }
-  };
+  }, [questionIndex]);
 
-  const previousQuestion = () => {
+  const previousQuestion = useCallback(() => {
     if (questionIndex > 0) {
-      setQuestionIndex(questionIndex - 1);
+      setQuestionIndex((prevIndex) => prevIndex - 1);
     }
-  };
+  }, [questionIndex]);
 
-  const finishQizz = () => {
+  const finishQizz = useCallback(() => {
     setIsQuizzFinished(true);
-  };
+  }, []);
 
-  const resetQuizz = () => {
+  const resetQuizz = useCallback(() => {
     setQuizz([]);
     setQuestionIndex(0);
     setIsQuizzFinished(false);
-  };
+  }, []);
 
-  const currentPartLabel = (() => {
+  const currentPartLabel = useMemo(() => {
     const parts = Object.values(QUESSTIONS_PART).sort((a, b) => a.index - b.index);
     let label = parts[0]?.label ?? '';
     for (const part of parts) {
       if (questionIndex >= part.index) label = part.label;
     }
     return label;
-  })();
+  }, [questionIndex]);
 
   if (isQuizzFinished) {
     return (
@@ -88,4 +96,4 @@ export function Quizz() {
       </div>
     </>
   );
-}
+});

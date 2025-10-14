@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, memo, useCallback } from 'react';
 import { Selector } from './selector';
 import { Button } from './ui/button';
 import { type Question } from '../types/question';
 
-type QuestionProps = {
+interface QuestionProps {
   question: Question;
   setValue: (value: number) => void;
   nextQuestion: () => void;
@@ -12,8 +12,9 @@ type QuestionProps = {
   isLatestQuestion?: boolean;
   isFirstQuestion?: boolean;
   isAnimating?: boolean;
-};
-export function QuizzQuestion({
+}
+
+export const QuizzQuestion = memo(function QuizzQuestion({
   question,
   setValue,
   nextQuestion,
@@ -23,9 +24,9 @@ export function QuizzQuestion({
   isLatestQuestion,
   isAnimating = false,
 }: QuestionProps) {
-  const handleNextQuestion = () => {
+  const handleNextQuestion = useCallback(() => {
     nextQuestion();
-  };
+  }, [nextQuestion]);
 
   return (
     <div className="max-w-2xl mx-auto text-center">
@@ -36,6 +37,8 @@ export function QuizzQuestion({
               ? 'transform -translate-x-full opacity-0'
               : 'transform translate-x-0 opacity-100'
           }`}
+          role="heading"
+          aria-level={3}
         >
           {question.label}
         </p>
@@ -43,18 +46,31 @@ export function QuizzQuestion({
       <div className="mb-6">
         <Selector onChange={setValue} value={question.value} />
       </div>
-      <Button onClick={previousQuestion} disabled={isFirstQuestion} className="m-4">
+      <Button
+        onClick={previousQuestion}
+        disabled={isFirstQuestion}
+        className="m-4"
+        aria-label="Question précédente"
+      >
         Précédent
       </Button>
       {isLatestQuestion ? (
-        <Button onClick={finishQizz} disabled={question.value === undefined}>
+        <Button
+          onClick={finishQizz}
+          disabled={question.value === undefined}
+          aria-label="Terminer le quiz et voir le résultat"
+        >
           Voir mon résultat
         </Button>
       ) : (
-        <Button onClick={handleNextQuestion} disabled={question.value === undefined}>
+        <Button
+          onClick={handleNextQuestion}
+          disabled={question.value === undefined}
+          aria-label="Question suivante"
+        >
           Suivant
         </Button>
       )}
     </div>
   );
-}
+});

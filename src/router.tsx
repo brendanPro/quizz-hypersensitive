@@ -8,12 +8,20 @@ import { jwtDecode } from 'jwt-decode';
 
 const rootRoute = createRootRoute();
 
-const indexRoute = createRoute({
+const baseRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
   beforeLoad: async () => {
-    const search = typeof window !== 'undefined' ? window.location.search : '';
-    const response = await fetch(`${BACKEND_URL}${VALIDATE_PARAM}${search}`, {
+    throw redirect({ to: '/unauthorized' });
+  },
+});
+
+const indexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/$token',
+  beforeLoad: async ({ params }) => {
+    const token = params.token;
+    const response = await fetch(`${BACKEND_URL}${VALIDATE_PARAM}?key=${token}`, {
       method: 'GET',
     });
 
@@ -51,7 +59,13 @@ const loginRoute = createRoute({
   component: Login,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, adminRoute, unauthorizedRoute, loginRoute]);
+const routeTree = rootRoute.addChildren([
+  baseRoute,
+  indexRoute,
+  adminRoute,
+  unauthorizedRoute,
+  loginRoute,
+]);
 
 export const router = createRouter({ routeTree });
 

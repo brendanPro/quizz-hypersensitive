@@ -1,14 +1,18 @@
 import './index.css';
 import logo from './logo.svg';
 
-import { useState } from 'react';
+import { useState, memo, useCallback } from 'react';
 import { Quizz } from './components/quizz';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card';
 import { Button } from './components/ui/button';
 import { CookieConsent } from 'react-cookie-consent';
 
-export function App() {
+export const App = memo(function App() {
   const [isQuizzStarted, setIsQuizzStarted] = useState(false);
+
+  const handleStartQuiz = useCallback(() => {
+    setIsQuizzStarted(true);
+  }, []);
 
   return (
     <div className="md:w-[1000px] w-full md:mt-10 md:px-4 md:py-10 mx-auto">
@@ -16,7 +20,11 @@ export function App() {
         <CardHeader className="items-center text-center">
           <div className="w-full flex items-center justify-start md:gap-45 flex-col md:flex-row">
             <div className="h-30 w-30 shrink-0 rounded-md bg-muted/60 border flex items-center justify-center overflow-hidden">
-              <img src={logo} alt="Nexus-logo" className="h-50 w-50 object-contain" />
+              <img
+                src={logo}
+                alt="Logo Nexus Coaching & Consulting"
+                className="h-50 w-50 object-contain"
+              />
             </div>
             <CardTitle className="text-2xl md:text-3xl text-balance break-words max-w-[90%]">
               SUIS-JE HYPERSENSIBLE ?
@@ -38,7 +46,12 @@ export function App() {
         <CardContent className="text-center">
           <div className="relative z-10">
             {!isQuizzStarted ? (
-              <Button onClick={() => setIsQuizzStarted(true)}>Commencer le quizz</Button>
+              <Button
+                onClick={handleStartQuiz}
+                aria-label="Commencer le quiz d'évaluation de l'hypersensibilité"
+              >
+                Commencer le quizz
+              </Button>
             ) : (
               <Quizz />
             )}
@@ -50,6 +63,6 @@ export function App() {
       </CookieConsent>
     </div>
   );
-}
+});
 
 export default App;

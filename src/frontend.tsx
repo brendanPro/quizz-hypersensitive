@@ -12,17 +12,28 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { router } from './router';
 import { OAUTH_CLIENT_ID } from './constants/backend';
+import ErrorBoundary from './components/ErrorBoundary';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 2,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const elem = document.getElementById('root')!;
 const app = (
   <StrictMode>
-    <GoogleOAuthProvider clientId={OAUTH_CLIENT_ID ?? ''}>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </GoogleOAuthProvider>
+    <ErrorBoundary>
+      <GoogleOAuthProvider clientId={OAUTH_CLIENT_ID ?? ''}>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </GoogleOAuthProvider>
+    </ErrorBoundary>
   </StrictMode>
 );
 

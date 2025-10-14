@@ -11,11 +11,11 @@ import { Label as InputLabel } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useState, memo, useMemo, useCallback } from 'react';
 
-type QuizzResultProps = {
+interface QuizzResultProps {
   quizz: Question[];
-};
+}
 
 const chartConfig = {
   result: {
@@ -24,14 +24,17 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function QuizzResult({ quizz }: QuizzResultProps) {
+export const QuizzResult = memo(function QuizzResult({ quizz }: QuizzResultProps) {
   const [email, setUserEmail] = useState<string>('');
-  const max = QUESTIONS_LABELS.length * MAX_VALUE_PER_QUESTION;
-  const total = quizz.reduce((a, b) => a + b.value, 0);
-  const percent = Math.round((total / max) * 100);
 
-  const { isSuccess, isLoading, refetch } = useQuery({
-    queryKey: ['token'],
+  const max = QUESTIONS_LABELS.length * MAX_VALUE_PER_QUESTION;
+  const total = useMemo(() => quizz.reduce((a, b) => a + b.value, 0), [quizz]);
+  const percent = useMemo(() => Math.round((total / max) * 100), [total, max]);
+
+  const result = useMemo(() => RESULT_DESCRIPTION.find((result) => total <= result.score), [total]);
+
+  const { isSuccess, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ['save-result', total, email],
     queryFn: async () => {
       const response = await fetch(`${BACKEND_URL}${RESULT_HANDLER}`, {
         method: 'POST',
@@ -42,27 +45,57 @@ export function QuizzResult({ quizz }: QuizzResultProps) {
           answers: quizz,
         }),
       });
+
+      if (!response.ok) {
+        throw new Error(`Erreur lors de la sauvegarde: ${response.statusText}`);
+      }
+
       return response.json();
     },
     enabled: false,
+    retry: 2,
   });
 
-  const chartData = [
-    {
-      result: percent,
-      fill: 'var(--chart-2)',
-    },
-  ];
-  const resultDescription = RESULT_DESCRIPTION.find((result) => total <= result.score);
+  const chartData = useMemo(
+    () => [
+      {
+        result: percent,
+        fill: 'var(--chart-2)',
+      },
+    ],
+    [percent],
+  );
 
-  if (isLoading)
+  const handleEmailChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserEmail(e.target.value);
+  }, []);
+
+  const handleSaveResult = useCallback(() => {
+    if (email.trim()) {
+      refetch();
+    }
+  }, [email, refetch]);
+
+  if (isLoading) {
     return (
-      <>
-        <div className="text-center text-xl font-semibold">Sauvegarde du résultat en cours...</div>
-      </>
+      <div className="text-center text-xl font-semibold" role="status" aria-live="polite">
+        Sauvegarde du résultat en cours...
+      </div>
     );
+  }
 
-  if (isSuccess)
+  if (isError) {
+    return (
+      <div className="text-center text-xl font-semibold text-red-600" role="alert">
+        <p>Erreur lors de la sauvegarde: {error?.message}</p>
+        <Button onClick={handleSaveResult} className="mt-4">
+          Réessayer
+        </Button>
+      </div>
+    );
+  }
+
+  if (!isSuccess) {
     return (
       <>
         <div className="text-center text-xl font-semibold">
@@ -116,9 +149,16 @@ export function QuizzResult({ quizz }: QuizzResultProps) {
             </PolarRadiusAxis>
           </RadialBarChart>
         </ChartContainer>
-        <p className="text-center text-2xl font-bold">{resultDescription?.description}</p>
+        <div>
+          <p className="text-2xl font-bold mb-4">{result?.profile}</p>
+          <p className="mb-4 text-lg font-medium">{result?.description}</p>
+          <p className="mb-4 text-lg font-medium">{result?.strength}</p>
+          <p className="mb-4 text-lg font-medium">{result?.challenge}</p>
+          <p className="text-lg font-medium">{result?.advice}</p>
+        </div>
       </>
     );
+  }
 
   return (
     <div className="grid w-full max-w-sm items-center gap-3 m-auto">
@@ -128,9 +168,21 @@ export function QuizzResult({ quizz }: QuizzResultProps) {
         type="email"
         id="email"
         placeholder="Entrez votre email pour connaitre votre résultat"
-        onChange={(e) => setUserEmail(e.target.value)}
+        value={email}
+        onChange={handleEmailChange}
+        required
+        aria-describedby="email-help"
       />
-      <Button onClick={() => refetch()}>Voir mon résultat</Button>
+      <p id="email-help" className="text-sm text-muted-foreground">
+        Votre email sera utilisé uniquement pour vous envoyer vos résultats
+      </p>
+      <Button
+        onClick={handleSaveResult}
+        disabled={!email.trim()}
+        aria-label="Sauvegarder et voir le résultat"
+      >
+        Voir mon résultat
+      </Button>
     </div>
   );
-}
+});
