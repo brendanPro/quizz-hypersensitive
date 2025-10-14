@@ -32,7 +32,6 @@ export const QuizzResult = memo(function QuizzResult({ quizz }: QuizzResultProps
   const percent = useMemo(() => Math.round((total / max) * 100), [total, max]);
 
   const result = useMemo(() => RESULT_DESCRIPTION.find((result) => total <= result.score), [total]);
-
   const { isSuccess, isLoading, isError, error, refetch } = useQuery({
     queryKey: ['save-result', total, email],
     queryFn: async () => {
@@ -95,11 +94,11 @@ export const QuizzResult = memo(function QuizzResult({ quizz }: QuizzResultProps
     );
   }
 
-  if (!isSuccess) {
+  if (isSuccess) {
     return (
       <>
-        <div className="text-center text-xl font-semibold">
-          Félicitations, vous avez terminé le quizz !{' '}
+        <div className="text-center text-2xl font-semibold text-teal-700">
+          Félicitations, vous avez terminé le quizz !
           <p>Votre score d'hypersensibilité est de : </p>
         </div>
         <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">
@@ -149,12 +148,13 @@ export const QuizzResult = memo(function QuizzResult({ quizz }: QuizzResultProps
             </PolarRadiusAxis>
           </RadialBarChart>
         </ChartContainer>
+        <p className="text-2xl font-bold mb-16 text-teal-700">{result?.step}</p>
         <div>
-          <p className="text-2xl font-bold mb-4">{result?.profile}</p>
-          <p className="mb-4 text-lg font-medium">{result?.description}</p>
-          <p className="mb-4 text-lg font-medium">{result?.strength}</p>
-          <p className="mb-4 text-lg font-medium">{result?.challenge}</p>
-          <p className="text-lg font-medium">{result?.advice}</p>
+          <p className="text-xl font-bold mb-2">{result?.profile}</p>
+          <p className="mb-4 text-lg font-normal whitespace-pre-line">{result?.description}</p>
+          <p className="mb-4 text-lg font-normal whitespace-pre-line"><strong>💡 Votre force,</strong> {result?.strength}</p>
+          <p className="mb-4 text-lg font-normal whitespace-pre-line"><strong>⚖️ Votre défi,</strong> {result?.challenge}</p>
+          <p className="text-lg font-normal whitespace-pre-line"><strong>🎯 Conseil de coach :</strong> {result?.advice}</p>
         </div>
       </>
     );
