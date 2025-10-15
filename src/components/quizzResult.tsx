@@ -26,6 +26,7 @@ const chartConfig = {
 
 export const QuizzResult = memo(function QuizzResult({ quizz }: QuizzResultProps) {
   const [email, setUserEmail] = useState<string>('');
+  const [emailError, setEmailError] = useState<string>('');
 
   const max = QUESTIONS_LABELS.length * MAX_VALUE_PER_QUESTION;
   const total = useMemo(() => quizz.reduce((a, b) => a + b.value, 0), [quizz]);
@@ -65,15 +66,30 @@ export const QuizzResult = memo(function QuizzResult({ quizz }: QuizzResultProps
     [percent],
   );
 
-  const handleEmailChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserEmail(e.target.value);
+  const validateEmail = useCallback((value: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(value);
   }, []);
 
+  const handleEmailChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      setUserEmail(value);
+
+      if (value.trim() && !validateEmail(value)) {
+        setEmailError('Veuillez entrer une adresse email valide');
+      } else {
+        setEmailError('');
+      }
+    },
+    [validateEmail],
+  );
+
   const handleSaveResult = useCallback(() => {
-    if (email.trim()) {
+    if (email.trim() && validateEmail(email)) {
       refetch();
     }
-  }, [email, refetch]);
+  }, [email, validateEmail, refetch]);
 
   if (isLoading) {
     return (
@@ -98,8 +114,7 @@ export const QuizzResult = memo(function QuizzResult({ quizz }: QuizzResultProps
     return (
       <>
         <div className="text-center text-2xl font-semibold text-teal-700">
-          Félicitations, vous avez terminé le quizz !
-          <p>Votre score d'hypersensibilité est de : </p>
+          Félicitations, vous avez terminé le quizz !<p>Votre score d'hypersensibilité est de : </p>
         </div>
         <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">
           <RadialBarChart
@@ -152,9 +167,15 @@ export const QuizzResult = memo(function QuizzResult({ quizz }: QuizzResultProps
         <div>
           <p className="text-xl font-bold mb-2">{result?.profile}</p>
           <p className="mb-4 text-lg font-normal whitespace-pre-line">{result?.description}</p>
-          <p className="mb-4 text-lg font-normal whitespace-pre-line"><strong>💡 Votre force,</strong> {result?.strength}</p>
-          <p className="mb-4 text-lg font-normal whitespace-pre-line"><strong>⚖️ Votre défi,</strong> {result?.challenge}</p>
-          <p className="text-lg font-normal whitespace-pre-line"><strong>🎯 Conseil de coach :</strong> {result?.advice}</p>
+          <p className="mb-4 text-lg font-normal whitespace-pre-line">
+            <strong>💡 Votre force,</strong> {result?.strength}
+          </p>
+          <p className="mb-4 text-lg font-normal whitespace-pre-line">
+            <strong>⚖️ Votre défi,</strong> {result?.challenge}
+          </p>
+          <p className="text-lg font-normal whitespace-pre-line">
+            <strong>🎯 Conseil de coach :</strong> {result?.advice}
+          </p>
         </div>
       </>
     );
@@ -162,7 +183,9 @@ export const QuizzResult = memo(function QuizzResult({ quizz }: QuizzResultProps
 
   return (
     <div className="grid w-full max-w-sm items-center gap-3 m-auto">
-      <p className="mb-5 font-semibold text-xl">Il ne reste plus qu'une dernière étape &#128522;</p>
+      <p className="mb-5 font-semibold text-xl">
+        Il ne reste plus qu'une dernière étape pour connaitre votre résultat &#128522;
+      </p>
       <InputLabel htmlFor="email">Email</InputLabel>
       <Input
         type="email"
@@ -171,14 +194,22 @@ export const QuizzResult = memo(function QuizzResult({ quizz }: QuizzResultProps
         value={email}
         onChange={handleEmailChange}
         required
-        aria-describedby="email-help"
+        aria-describedby={emailError ? 'email-error' : 'email-help'}
+        aria-invalid={!!emailError}
+        className={emailError ? 'border-red-500 focus-visible:ring-red-500' : ''}
       />
-      <p id="email-help" className="text-sm text-muted-foreground">
-        Votre email sera utilisé uniquement pour vous envoyer vos résultats
-      </p>
+      {emailError ? (
+        <p id="email-error" className="text-sm text-red-600" role="alert">
+          {emailError}
+        </p>
+      ) : (
+        <p id="email-help" className="text-sm text-muted-foreground">
+          Votre email sera concervé uniquement par Nexus Coaching & Consulting
+        </p>
+      )}
       <Button
         onClick={handleSaveResult}
-        disabled={!email.trim()}
+        disabled={!email.trim() || !!emailError}
         aria-label="Sauvegarder et voir le résultat"
       >
         Voir mon résultat
