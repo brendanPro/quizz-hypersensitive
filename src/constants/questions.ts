@@ -109,13 +109,13 @@ export const RESULT_DESCRIPTION = [
     strength:
       'réside dans votre compréhension fine des autres, dans votre empathie mesurée et consciente. Vous savez quand tendre la main, quand écouter, et aussi quand prendre du recul. Cette qualité fait de vous une personne sur laquelle on peut s’appuyer, un soutien subtil mais précieux, car votre présence apaise et régule naturellement les énergies autour de vous.',
     challenge: `cependant, consiste à veiller à ne pas absorber inconsciemment les tensions ou les émotions collectives. 
-      Même équilibré(e), votre sensibilité reste une porte ouverte, et il arrive que certaines atmosphères ou personnes la franchissent sans que vous vous en rendiez compte. Apprenez à repérer ces moments où votre énergie se disperse, et à refermer doucement votre espace émotionnel lorsque cela devient nécessaire.
+      Même équilibré(e), votre sensibilité reste une porte ouverte, et il arrive que certaines atmosphères ou personnes la franchissent sans que vous ne vous en rendiez compte. Apprenez à repérer ces moments où votre énergie se disperse, et à refermer doucement votre espace émotionnel lorsque cela devient nécessaire.
       Rappelez-vous : accueillir ne veut pas dire porter. Vous pouvez ressentir sans vous charger, comprendre sans vous alourdir.
-      voient.`,
+    `,
     advice: ` accordez-vous régulièrement des instants de recentrage, surtout après des journées riches en interactions. 
-      Une marche en pleine nature, quelques respirations profondes, un moment de silence ou une musique qui vous élève peuvent suffire à réharmoniser votre énergie.
+      Une marche en pleine nature, quelques respirations profondes, un moment de silence ou une musique qui vous élève peuvent suffir à réharmoniser votre énergie.
       Ces pauses ne sont pas du luxe : elles sont le secret qui vous permet de continuer à donner sans vous vider.
-      Plus vous prendrez soin de cet équilibre subtil entre ouverture et protection, plus votre sensibilité deviendra une force rayonnante, stable et profondément inspirante
+      Plus vous prendrez soin de cet équilibre subtil entre ouverture et protection, plus votre sensibilité deviendra une force rayonnante, stable et profondément inspirante.
     `,
   },
   {
