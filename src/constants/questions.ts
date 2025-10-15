@@ -143,15 +143,15 @@ export const RESULT_DESCRIPTION = [
     step: 'Vous êtes fortement hypersensible',
     profile: '🌊 Votre Profil : L’intuitif·ve profond·e',
     description: `Vous ressentez tout — parfois même un peu trop. Les émotions, les ambiances, les sons, les mots, les regards, ou encore les injustices du monde trouvent en vous un écho puissant. 
-      Vous captez les vibrations subtiles de la vie, comme si votre antenne intérieure était réglée sur une fréquence que peu perçoivent.
-      Cette sensibilité intense est une richesse immense : elle vous relie à la profondeur des êtres et à la vérité des choses. Mais elle demande aussi de la conscience de soi, afin que cette ouverture ne devienne pas une source d’épuisement.
+      Vous captez les vibrations subtiles de la vie comme si votre antenne intérieure était réglée sur une fréquence que peu perçoivent.
+      Cette sensibilité intense est une richesse immense : elle vous relie à la profondeur des êtres et à la vérité des choses. Mais elle demande aussi de la conscience de soi afin que cette ouverture ne devienne pas une source d’épuisement.
       Vous êtes habité(e) par une grande humanité. 
-      Vous ressentez le monde avec le cœur, et cela vous rend profondément vivant(e). Vous percevez ce qui se cache derrière les apparences, vous saisissez les non-dits, les émotions à demi-mot, les vibrations que d’autres ne voient pas. 
+      Vous ressentez le monde avec le cœur et cela vous rend profondément vivant(e). Vous percevez ce qui se cache derrière les apparences, vous saisissez les non-dits, les émotions à demi-mot, les vibrations que d’autres ne voient pas. 
       Votre intuition est fine, presqu’instinctive — une boussole intérieure qui vous guide avec une précision étonnante quand vous lui faites confiance.
     `,
     strength: `réside dans votre intuition, votre profondeur et votre humanité sincère. 
-      Vous avez ce don rare de comprendre sans analyser, d’aimer sans condition, et de voir au-delà des masques. 
-      Vous êtes un être de ressenti et de vérité, capable d’apporter de la lumière dans les zones d’ombre, simplement par votre présence consciente.
+      Vous avez ce don rare de comprendre sans analyser, d’aimer sans condition et de voir au-delà des masques. 
+      Vous êtes un être de ressenti et de vérité capable d’apporter de la lumière dans les zones d’ombre simplement par votre présence consciente.
     `,
     challenge: `est d’apprendre à distinguer ce qui vous appartient de ce qui vient des autres. 
       Votre grande réceptivité peut parfois vous amener à absorber les émotions collectives, les tensions ou les tristesses ambiantes. Or, tout ce que vous ressentez n’est pas forcément à vous.
