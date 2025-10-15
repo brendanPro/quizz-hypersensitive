@@ -13,7 +13,7 @@ export const QUESTIONS_LABELS = [
   '11. Je suis sensible aux effets de la caféine, de l’alcool ou de la drogue',
   '12. Je sursaute facilement',
   "13. Je m'énerve, je perds mes moyens ou stresse lorsque j'ai beaucoup de choses à faire en même temps",
-  '14. J’étouffe lorsqje rougir même lors d’une situation banale',
+  '14. J’étouffe lorsque c’est l’effervescence autour de moi et je supporte mal la foule',
   '15. Je suis stressé(e) par les imprévus ou les changements soudains',
   "16. J'évite de commettre des erreurs ou des oublis",
   '17. Il m’arrive de passer du temps à imaginer des scénarios catastrophes afin de me sentir préparé(e) à toute éventualité',
