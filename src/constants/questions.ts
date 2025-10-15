@@ -153,11 +153,11 @@ export const RESULT_DESCRIPTION = [
       Vous avez ce don rare de comprendre sans analyser, d’aimer sans condition, et de voir au-delà des masques. 
       Vous êtes un être de ressenti et de vérité, capable d’apporter de la lumière dans les zones d’ombre, simplement par votre présence consciente.
     `,
-    challenge: `⚖️ Votre défi est d’apprendre à distinguer ce qui vous appartient de ce qui vient des autres. 
+    challenge: `est d’apprendre à distinguer ce qui vous appartient de ce qui vient des autres. 
       Votre grande réceptivité peut parfois vous amener à absorber les émotions collectives, les tensions ou les tristesses ambiantes. Or, tout ce que vous ressentez n’est pas forcément à vous.
       En développant ce discernement intérieur, vous pourrez rester ouvert(e) sans être perméable, empathique sans vous perdre, compatissant(e) sans vous alourdir.
     `,
-    adivce: ` créez dans votre vie des espaces sécurisants — des lieux, des activités ou des personnes qui vous offrent un ancrage doux et rassurant. Ce sont vos bulles d’oxygène émotionnelles, vos ports d’attache entre deux vagues.
+    advice: ` créez dans votre vie des espaces sécurisants — des lieux, des activités ou des personnes qui vous offrent un ancrage doux et rassurant. Ce sont vos bulles d’oxygène émotionnelles, vos ports d’attache entre deux vagues.
       Offrez-vous des moments pour déposer, respirer, écrire, méditer ou simplement être en silence. Votre énergie est un trésor : prenez-en soin comme d’une flamme sacrée.
       Plus vous honorerez cette sensibilité en conscience, plus elle deviendra votre force la plus noble — celle qui éclaire, relie et guérit.
     `,
@@ -175,7 +175,7 @@ export const RESULT_DESCRIPTION = [
     challenge: `toutefois, est d’apprendre à canaliser cette intensité afin qu’elle vous élève plutôt qu’elle ne vous épuise. Votre cœur immense peut tout absorber, jusqu’à se saturer d’émotions qui ne sont pas les vôtres. L’objectif n’est pas de ressentir moins, mais de ressentir autrement : avec conscience, discernement et douceur.
       Plus vous apprendrez à mettre de la distance bienveillante entre ce que vous captez et ce que vous incarnez, plus votre sensibilité deviendra une force stable et lumineuse.
     `,
-    adivce: ` entourez-vous de douceur. Offrez-vous régulièrement des espaces de calme et de ressourcement — la nature, la musique, la méditation, l’écriture, ou simplement le silence.
+    advice: ` entourez-vous de douceur. Offrez-vous régulièrement des espaces de calme et de ressourcement — la nature, la musique, la méditation, l’écriture, ou simplement le silence.
       Mettez en place une véritable hygiène émotionnelle : repos, ancrage, respiration, moments d’intériorité.
       Et surtout, souvenez-vous : votre hypersensibilité n’est pas une faiblesse à corriger, mais un langage du monde, une manière unique, vibrante et poétique d’entrer en lien avec la vie. C’est votre signature, votre couleur, votre lumière.
     `,
