@@ -204,7 +204,7 @@ export const QuizzResult = memo(function QuizzResult({ quizz }: QuizzResultProps
         </p>
       ) : (
         <p id="email-help" className="text-sm text-muted-foreground">
-          Votre email sera concervé uniquement par Nexus Coaching & Consulting
+          Votre email sera conservé uniquement par Nexus Coaching & Consulting
         </p>
       )}
       <Button
